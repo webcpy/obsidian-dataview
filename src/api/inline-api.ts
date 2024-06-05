@@ -18,7 +18,7 @@ import { Result } from "api/result";
 
 /** Asynchronous API calls related to file / system IO. */
 export class DataviewInlineIOApi {
-    public constructor(public api: DataviewIOApi, public currentFile: string) {}
+    public constructor(public api: DataviewIOApi, public currentFile: string) { }
 
     /** Load the contents of a CSV asynchronously, returning a data array of rows (or undefined if it does not exist). */
     public async csv(path: string, originFile?: string): Promise<DataArray<DataObject> | undefined> {
@@ -329,7 +329,7 @@ export class DataviewInlineApi {
         if (!viewFile) {
             renderErrorPre(
                 this.container,
-                `Dataview: custom view not found for '${simpleViewPath}' or '${complexViewPath}'.`
+                `Dataview: 未找到 '${simpleViewPath}' 或 '${complexViewPath}' 自定义视图.`
             );
             return;
         }
@@ -364,7 +364,7 @@ export class DataviewInlineApi {
                 );
         } catch (ex) {
             if (cssElement) this.container.removeChild(cssElement);
-            renderErrorPre(this.container, `Dataview: Failed to execute view '${viewFile.path}'.\n\n${ex}`);
+            renderErrorPre(this.container, `Dataview: 无法执行视图 '${viewFile.path}'.\n\n${ex}`);
         }
     }
 

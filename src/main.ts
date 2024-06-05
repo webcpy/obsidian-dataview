@@ -282,7 +282,7 @@ export default class DataviewPlugin extends Plugin {
                 let field = tryOrPropogate(() => parseField(potentialField));
                 if (!field.successful) {
                     let errorBlock = el.createEl("div");
-                    renderErrorPre(errorBlock, `Dataview (inline field '${potentialField}'): ${field.error}`);
+                    renderErrorPre(errorBlock, `Dataview (内联字段 '${potentialField}'): ${field.error}`);
                 } else {
                     let fieldValue = field.value;
                     component.addChild(

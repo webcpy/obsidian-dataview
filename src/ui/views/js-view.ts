@@ -16,7 +16,7 @@ export class DataviewJSRenderer extends DataviewRefreshableRenderer {
             this.containerEl.innerHTML = "";
             renderErrorPre(
                 this.container,
-                "Dataview JS queries are disabled. You can enable them in the Dataview settings."
+                "Dataview JS 查询已禁用。您可以在数据视图设置中启用它们。"
             );
             return;
         }
@@ -29,7 +29,7 @@ export class DataviewJSRenderer extends DataviewRefreshableRenderer {
             );
         } catch (e) {
             this.containerEl.innerHTML = "";
-            renderErrorPre(this.container, "Evaluation Error: " + e.stack);
+            renderErrorPre(this.container, "评估错误: " + e.stack);
         }
     }
 }
@@ -55,7 +55,7 @@ export class DataviewInlineJSRenderer extends DataviewRefreshableRenderer {
         this.errorbox?.remove();
         if (!this.settings.enableDataviewJs || !this.settings.enableInlineDataviewJs) {
             let temp = document.createElement("span");
-            temp.innerText = "(disabled; enable in settings)";
+            temp.innerText = "(禁用：在设置中启用)";
             this.target.replaceWith(temp);
             this.target = temp;
             return;
@@ -75,7 +75,7 @@ export class DataviewInlineJSRenderer extends DataviewRefreshableRenderer {
             renderValue(this.api.app, result, temp, this.origin, this, this.settings, false);
         } catch (e) {
             this.errorbox = this.container.createEl("div");
-            renderErrorPre(this.errorbox, "Dataview (for inline JS query '" + this.script + "'): " + e);
+            renderErrorPre(this.errorbox, "Dataview (对于内联JS查询 '" + this.script + "'): " + e);
         }
     }
 }

@@ -108,7 +108,7 @@ export default class DataviewPlugin extends Plugin {
         // Dataview "force refresh" operation.
         this.addCommand({
             id: "dataview-force-refresh-views",
-            name: "Force refresh all views and blocks",
+            name: "强制刷新所有视图和区块",
             callback: () => {
                 this.index.revision += 1;
                 this.app.workspace.trigger("dataview:refresh-views");
@@ -117,7 +117,7 @@ export default class DataviewPlugin extends Plugin {
 
         this.addCommand({
             id: "dataview-drop-cache",
-            name: "Drop all cached file metadata",
+            name: "删除所有缓存的文件元数据",
             callback: () => {
                 this.index.reinitialize();
             },
@@ -129,7 +129,7 @@ export default class DataviewPlugin extends Plugin {
 
         this.addCommand({
             id: "dataview-rebuild-current-view",
-            name: "Rebuild current view",
+            name: "重建当前视图",
             callback: () => {
                 const activeView: MarkdownView | null = this.app.workspace.getActiveViewOfType(MarkdownView);
                 if (activeView) {
@@ -333,8 +333,8 @@ class GeneralSettingsTab extends PluginSettingTab {
         this.containerEl.empty();
 
         new Setting(this.containerEl)
-            .setName("Enable inline queries")
-            .setDesc("Enable or disable executing regular inline Dataview queries.")
+            .setName("启用内联查询")
+            .setDesc("启用或禁用执行常规内联 Dataview 查询。")
             .addToggle(toggle =>
                 toggle
                     .setValue(this.plugin.settings.enableInlineDataview)
@@ -342,18 +342,17 @@ class GeneralSettingsTab extends PluginSettingTab {
             );
 
         new Setting(this.containerEl)
-            .setName("Enable JavaScript queries")
-            .setDesc("Enable or disable executing DataviewJS queries.")
+            .setName("启用 JavaScript 查询")
+            .setDesc("启用或禁用执行 DataviewJS 查询。")
             .addToggle(toggle =>
                 toggle
                     .setValue(this.plugin.settings.enableDataviewJs)
                     .onChange(async value => await this.plugin.updateSettings({ enableDataviewJs: value }))
             );
-
         new Setting(this.containerEl)
-            .setName("Enable inline JavaScript queries")
+            .setName("启用内联 JavaScript 查询")
             .setDesc(
-                "Enable or disable executing inline DataviewJS queries. Requires that DataviewJS queries are enabled."
+                "启用或禁用执行内联 DataviewJS 查询。需要启用 DataviewJS 查询。"
             )
             .addToggle(toggle =>
                 toggle
@@ -362,8 +361,8 @@ class GeneralSettingsTab extends PluginSettingTab {
             );
 
         new Setting(this.containerEl)
-            .setName("Enable inline field highlighting in reading view")
-            .setDesc("Enables or disables visual highlighting / pretty rendering for inline fields in reading view.")
+            .setName("在阅读视图中启用内联字段高亮显示")
+            .setDesc("启用或禁用在阅读视图中内联字段的视觉高亮显示/美观渲染。")
             .addToggle(toggle =>
                 toggle
                     .setValue(this.plugin.settings.prettyRenderInlineFields)
@@ -371,8 +370,8 @@ class GeneralSettingsTab extends PluginSettingTab {
             );
 
         new Setting(this.containerEl)
-            .setName("Enable inline field highlighting in Live Preview")
-            .setDesc("Enables or disables visual highlighting / pretty rendering for inline fields in Live Preview.")
+            .setName("在实时预览中启用内联字段高亮显示")
+            .setDesc("启用或禁用在实时预览中内联字段的视觉高亮显示/美观渲染。")
             .addToggle(toggle =>
                 toggle.setValue(this.plugin.settings.prettyRenderInlineFieldsInLivePreview).onChange(async value => {
                     await this.plugin.updateSettings({ prettyRenderInlineFieldsInLivePreview: value });
@@ -380,12 +379,12 @@ class GeneralSettingsTab extends PluginSettingTab {
                 })
             );
 
-        new Setting(this.containerEl).setName("Codeblocks").setHeading();
+        new Setting(this.containerEl).setName("代码块").setHeading();
 
         new Setting(this.containerEl)
-            .setName("DataviewJS keyword")
+            .setName("DataviewJS 关键字")
             .setDesc(
-                "Keyword for DataviewJS blocks. Defaults to 'dataviewjs'. Reload required for changes to take effect."
+                "DataviewJS 代码块的关键字。默认为 'dataviewjs'。更改后需要重新加载才能生效。"
             )
             .addText(text =>
                 text
@@ -400,8 +399,8 @@ class GeneralSettingsTab extends PluginSettingTab {
             );
 
         new Setting(this.containerEl)
-            .setName("Inline query prefix")
-            .setDesc("The prefix to inline queries (to mark them as Dataview queries). Defaults to '='.")
+            .setName("内联查询前缀")
+            .setDesc("内联查询的前缀（用于将其标记为 Dataview 查询）。默认为 '='。")
             .addText(text =>
                 text
                     .setPlaceholder("=")
@@ -414,8 +413,8 @@ class GeneralSettingsTab extends PluginSettingTab {
             );
 
         new Setting(this.containerEl)
-            .setName("JavaScript inline query prefix")
-            .setDesc("The prefix to JavaScript inline queries (to mark them as DataviewJS queries). Defaults to '$='.")
+            .setName("JavaScript 内联查询前缀")
+            .setDesc("JavaScript 内联查询的前缀（用于将其标记为 DataviewJS 查询）。默认为 '$='。")
             .addText(text =>
                 text
                     .setPlaceholder("$=")
@@ -428,19 +427,19 @@ class GeneralSettingsTab extends PluginSettingTab {
             );
 
         new Setting(this.containerEl)
-            .setName("Code block inline queries")
-            .setDesc("If enabled, inline queries will also be evaluated inside full code blocks.")
+            .setName("代码块内联查询")
+            .setDesc("如果启用，内联查询也将在完整的代码块中进行评估。")
             .addToggle(toggle =>
                 toggle
                     .setValue(this.plugin.settings.inlineQueriesInCodeblocks)
                     .onChange(async value => await this.plugin.updateSettings({ inlineQueriesInCodeblocks: value }))
             );
 
-        new Setting(this.containerEl).setName("View").setHeading();
+        new Setting(this.containerEl).setName("视图").setHeading();
 
         new Setting(this.containerEl)
-            .setName("Display result count")
-            .setDesc("If toggled off, the small number in the result header of TASK and TABLE queries will be hidden.")
+            .setName("显示结果计数")
+            .setDesc("如果关闭，TASK 和 TABLE 查询结果标题中的小数字将被隐藏。")
             .addToggle(toggle =>
                 toggle.setValue(this.plugin.settings.showResultCount).onChange(async value => {
                     await this.plugin.updateSettings({ showResultCount: value });
@@ -449,8 +448,8 @@ class GeneralSettingsTab extends PluginSettingTab {
             );
 
         new Setting(this.containerEl)
-            .setName("Warn on empty result")
-            .setDesc("If set, queries which return 0 results will render a warning message.")
+            .setName("空结果警告")
+            .setDesc("如果设置，当查询返回 0 结果时，将显示警告消息。")
             .addToggle(toggle =>
                 toggle.setValue(this.plugin.settings.warnOnEmptyResult).onChange(async value => {
                     await this.plugin.updateSettings({ warnOnEmptyResult: value });
@@ -459,8 +458,8 @@ class GeneralSettingsTab extends PluginSettingTab {
             );
 
         new Setting(this.containerEl)
-            .setName("Render null as")
-            .setDesc("What null/non-existent should show up as in tables, by default. This supports Markdown notation.")
+            .setName("将 null 渲染为")
+            .setDesc("在表格中，默认情况下，null/不存在的内容应显示为。这支持 Markdown 标记。")
             .addText(text =>
                 text
                     .setPlaceholder("-")
@@ -472,10 +471,9 @@ class GeneralSettingsTab extends PluginSettingTab {
             );
 
         new Setting(this.containerEl)
-            .setName("Automatic view refreshing")
+            .setName("自动视图刷新")
             .setDesc(
-                "If enabled, views will automatically refresh when files in your vault change; this can negatively affect" +
-                    " some functionality like embeds in views, so turn it off if such functionality is not working."
+                "如果启用，当你的仓库中的文件发生变化时，视图将自动刷新；这可能会对一些功能（如视图中的嵌入）产生负面影响，因此如果此类功能不起作用，请将其关闭。"
             )
             .addToggle(toggle =>
                 toggle.setValue(this.plugin.settings.refreshEnabled).onChange(async value => {
@@ -485,8 +483,8 @@ class GeneralSettingsTab extends PluginSettingTab {
             );
 
         new Setting(this.containerEl)
-            .setName("Refresh interval")
-            .setDesc("How long to wait (in milliseconds) for files to stop changing before updating views.")
+            .setName("刷新间隔")
+            .setDesc("在更新视图之前等待文件停止更改的时间（以毫秒为单位）。")
             .addText(text =>
                 text
                     .setPlaceholder("500")
@@ -500,11 +498,11 @@ class GeneralSettingsTab extends PluginSettingTab {
             );
 
         let dformat = new Setting(this.containerEl)
-            .setName("Date format")
+            .setName("日期格式")
             .setDesc(
-                "The default date format (see Luxon date format options)." +
-                    " Currently: " +
-                    DateTime.now().toFormat(this.plugin.settings.defaultDateFormat, { locale: currentLocale() })
+                "默认日期格式（参见 Luxon 日期格式选项）。" +
+                " 当前格式: " +
+                DateTime.now().toFormat(this.plugin.settings.defaultDateFormat, { locale: currentLocale() })
             )
             .addText(text =>
                 text
@@ -512,9 +510,9 @@ class GeneralSettingsTab extends PluginSettingTab {
                     .setValue(this.plugin.settings.defaultDateFormat)
                     .onChange(async value => {
                         dformat.setDesc(
-                            "The default date format (see Luxon date format options)." +
-                                " Currently: " +
-                                DateTime.now().toFormat(value, { locale: currentLocale() })
+                            "默认日期格式（参见 Luxon 日期格式选项）。" +
+                            " 当前格式: " +
+                            DateTime.now().toFormat(value, { locale: currentLocale() })
                         );
                         await this.plugin.updateSettings({ defaultDateFormat: value });
 
@@ -523,11 +521,11 @@ class GeneralSettingsTab extends PluginSettingTab {
             );
 
         let dtformat = new Setting(this.containerEl)
-            .setName("Date + time format")
+            .setName("日期和时间格式")
             .setDesc(
-                "The default date and time format (see Luxon date format options)." +
-                    " Currently: " +
-                    DateTime.now().toFormat(this.plugin.settings.defaultDateTimeFormat, { locale: currentLocale() })
+                "默认日期和时间格式（参见 Luxon 日期格式选项）。" +
+                " 当前格式: " +
+                DateTime.now().toFormat(this.plugin.settings.defaultDateTimeFormat, { locale: currentLocale() })
             )
             .addText(text =>
                 text
@@ -535,9 +533,9 @@ class GeneralSettingsTab extends PluginSettingTab {
                     .setValue(this.plugin.settings.defaultDateTimeFormat)
                     .onChange(async value => {
                         dtformat.setDesc(
-                            "The default date and time format (see Luxon date format options)." +
-                                " Currently: " +
-                                DateTime.now().toFormat(value, { locale: currentLocale() })
+                            "默认日期和时间格式（参见 Luxon 日期格式选项）。" +
+                            " 当前格式: " +
+                            DateTime.now().toFormat(value, { locale: currentLocale() })
                         );
                         await this.plugin.updateSettings({ defaultDateTimeFormat: value });
 
@@ -545,12 +543,12 @@ class GeneralSettingsTab extends PluginSettingTab {
                     })
             );
 
-        new Setting(this.containerEl).setName("Tables").setHeading();
+        new Setting(this.containerEl).setName("表格").setHeading();
 
         new Setting(this.containerEl)
-            .setName("Primary column name")
+            .setName("主列名称")
             .setDesc(
-                "The name of the default ID column in tables; this is the auto-generated first column that links to the source file."
+                "表格中默认 ID 列的名称；这是自动生成的第一列，链接到源文件。"
             )
             .addText(text =>
                 text
@@ -563,10 +561,9 @@ class GeneralSettingsTab extends PluginSettingTab {
             );
 
         new Setting(this.containerEl)
-            .setName("Grouped column name")
+            .setName("分组列名称")
             .setDesc(
-                "The name of the default ID column in tables, when the table is on grouped data; this is the auto-generated first column" +
-                    "that links to the source file/group."
+                "当表格显示分组数据时，默认 ID 列的名称；这是自动生成的第一列，链接到源文件/组。"
             )
             .addText(text =>
                 text
@@ -578,22 +575,22 @@ class GeneralSettingsTab extends PluginSettingTab {
                     })
             );
 
-        new Setting(this.containerEl).setName("Tasks").setHeading();
+        new Setting(this.containerEl).setName("任务").setHeading();
 
         let taskCompletionSubsettingsEnabled = this.plugin.settings.taskCompletionTracking;
         let taskCompletionInlineSubsettingsEnabled =
             taskCompletionSubsettingsEnabled && !this.plugin.settings.taskCompletionUseEmojiShorthand;
 
         new Setting(this.containerEl)
-            .setName("Automatic task completion tracking")
+            .setName("自动任务完成跟踪")
             .setDesc(
                 createFragment(el => {
                     el.appendText(
-                        "If enabled, Dataview will automatically append tasks with their completion date when they are checked in Dataview views."
+                        "如果启用，当在 Dataview 视图中勾选任务时，Dataview 将自动附加任务的完成日期。"
                     );
                     el.createEl("br");
                     el.appendText(
-                        "Example with default field name and date format: - [x] my task [completion:: 2022-01-01]"
+                        "示例（使用默认字段名称和日期格式）：- [x] 我的任务 [completion:: 2022-01-01]"
                     );
                 })
             )
@@ -606,23 +603,23 @@ class GeneralSettingsTab extends PluginSettingTab {
             );
 
         let taskEmojiShorthand = new Setting(this.containerEl)
-            .setName("Use emoji shorthand for completion")
+            .setName("使用表情符号简写完成任务")
             .setDisabled(!taskCompletionSubsettingsEnabled);
         if (taskCompletionSubsettingsEnabled)
             taskEmojiShorthand
                 .setDesc(
                     createFragment(el => {
                         el.appendText(
-                            'If enabled, will use emoji shorthand instead of inline field formatting to fill out implicit task field "completion".'
+                            '如果启用，将使用表情符号简写而不是内联字段格式来填写隐式任务字段“完成”。'
                         );
                         el.createEl("br");
-                        el.appendText("Example: - [x] my task ✅ 2022-01-01");
+                        el.appendText("示例：- [x] 我的任务 ✅ 2022-01-01");
                         el.createEl("br");
                         el.appendText(
-                            "Disable this to customize the completion date format or field name, or to use Dataview inline field formatting."
+                            "禁用此选项以自定义完成日期格式或字段名称，或使用 Dataview 内联字段格式。"
                         );
                         el.createEl("br");
-                        el.appendText('Only available when "automatic task completion tracking" is enabled.');
+                        el.appendText('仅在启用“自动任务完成跟踪”时可用。');
                     })
                 )
                 .addToggle(toggle =>
@@ -632,21 +629,21 @@ class GeneralSettingsTab extends PluginSettingTab {
                         this.display();
                     })
                 );
-        else taskEmojiShorthand.setDesc('Only available when "automatic task completion tracking" is enabled.');
+        else taskEmojiShorthand.setDesc('仅在启用“自动任务完成跟踪”时可用。');
 
         let taskFieldName = new Setting(this.containerEl)
-            .setName("Completion field name")
+            .setName("完成字段名称")
             .setDisabled(!taskCompletionInlineSubsettingsEnabled);
         if (taskCompletionInlineSubsettingsEnabled)
             taskFieldName
                 .setDesc(
                     createFragment(el => {
                         el.appendText(
-                            "Text used as inline field key for task completion date when toggling a task's checkbox in a Dataview view."
+                            "当在 Dataview 视图中切换任务的复选框时，作为任务完成日期的内联字段键使用的文本。"
                         );
                         el.createEl("br");
                         el.appendText(
-                            'Only available when "automatic task completion tracking" is enabled and "use emoji shorthand for completion" is disabled.'
+                            '仅在启用“自动任务完成跟踪”和禁用“使用表情符号简写完成任务”时可用。'
                         );
                     })
                 )
@@ -657,17 +654,17 @@ class GeneralSettingsTab extends PluginSettingTab {
                 );
         else
             taskFieldName.setDesc(
-                'Only available when "automatic task completion tracking" is enabled and "use emoji shorthand for completion" is disabled.'
+                '仅在启用“自动任务完成跟踪”和禁用“使用表情符号简写完成任务”时可用。'
             );
 
         let taskDtFormat = new Setting(this.containerEl)
-            .setName("Completion date format")
+            .setName("完成日期格式")
             .setDisabled(!taskCompletionInlineSubsettingsEnabled);
         if (taskCompletionInlineSubsettingsEnabled) {
             let descTextLines = [
-                "Date-time format for task completion date when toggling a task's checkbox in a Dataview view (see Luxon date format options).",
-                'Only available when "automatic task completion tracking" is enabled and "use emoji shorthand for completion" is disabled.',
-                "Currently: ",
+                "当在 Dataview 视图中切换任务的复选框时，任务完成日期的日期时间格式（参见 Luxon 日期格式选项）。",
+                '仅在启用“自动任务完成跟踪”和禁用“使用表情符号简写完成任务”时可用。',
+                "当前格式: ",
             ];
             taskDtFormat
                 .setDesc(
@@ -678,9 +675,9 @@ class GeneralSettingsTab extends PluginSettingTab {
                         el.createEl("br");
                         el.appendText(
                             descTextLines[2] +
-                                DateTime.now().toFormat(this.plugin.settings.taskCompletionDateFormat, {
-                                    locale: currentLocale(),
-                                })
+                            DateTime.now().toFormat(this.plugin.settings.taskCompletionDateFormat, {
+                                locale: currentLocale(),
+                            })
                         );
                     })
                 )
@@ -697,7 +694,7 @@ class GeneralSettingsTab extends PluginSettingTab {
                                     el.createEl("br");
                                     el.appendText(
                                         descTextLines[2] +
-                                            DateTime.now().toFormat(value.trim(), { locale: currentLocale() })
+                                        DateTime.now().toFormat(value.trim(), { locale: currentLocale() })
                                     );
                                 })
                             );
@@ -707,13 +704,12 @@ class GeneralSettingsTab extends PluginSettingTab {
                 );
         } else {
             taskDtFormat.setDesc(
-                'Only available when "automatic task completion tracking" is enabled and "use emoji shorthand for completion" is disabled.'
+                '仅在启用“自动任务完成跟踪”和禁用“使用表情符号简写完成任务”时可用。'
             );
         }
         new Setting(this.containerEl)
-            .setName("Recursive sub-task completion")
-            // I gotta word this better :/
-            .setDesc("If enabled, completing a task in a Dataview will automatically complete its subtasks too.")
+            .setName("递归子任务完成")
+            .setDesc("如果启用，在 Dataview 中完成任务将自动完成其子任务。")
             .addToggle(toggle =>
                 toggle
                     .setValue(this.plugin.settings.recursiveSubTaskCompletion)
